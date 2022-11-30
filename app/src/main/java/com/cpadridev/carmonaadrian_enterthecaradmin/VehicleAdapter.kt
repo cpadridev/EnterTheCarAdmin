@@ -61,7 +61,7 @@ class VehicleAdapter : RecyclerView.Adapter<VehicleAdapter.MyViewHolder>() {
     }
 
     fun updateList(pos: Int, vehicle: Vehicle){
-        list.set(pos, vehicle)
+        list[pos] = vehicle
 
         notifyDataSetChanged()
     }

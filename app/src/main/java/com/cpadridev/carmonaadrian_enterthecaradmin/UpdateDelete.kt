@@ -36,9 +36,9 @@ class UpdateDelete : AppCompatActivity() {
             val bundle = Bundle()
 
             bundle.putParcelable("Vehicle", Vehicle(id.text.toString().toInt(), type.text.toString(), price.text.toString().toInt()))
+            bundle.putBoolean("Delete", false)
 
             val intent = Intent().apply {
-                putExtra("Delete", false)
                 putExtra(Intent.EXTRA_TEXT, bundle)
             }
 
@@ -48,9 +48,13 @@ class UpdateDelete : AppCompatActivity() {
         }
 
         btnDelete.setOnClickListener {
+            val bundle = Bundle()
+
+            bundle.putBoolean("Delete", true)
+            bundle.putInt("id", id.text.toString().toInt())
+
             val intent = Intent().apply {
-                putExtra("Delete", true)
-                putExtra("Id", id.text.toString().toInt())
+                putExtra(Intent.EXTRA_TEXT, bundle)
             }
 
             setResult(RESULT_OK, intent)

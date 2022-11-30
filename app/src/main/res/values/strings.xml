@@ -1,11 +1,20 @@
 <resources>
-    <string name="app_name">CarmonaAdrian_EnterTheCarAdmin</string>
+    <string name="app_name" translatable="false">CarmonaAdrian_EnterTheCarAdmin</string>
     <string name="insert">Insertar</string>
     <string name="type">Tipo:</string>
-    <string name="update">Update</string>
-    <string name="delete">Delete</string>
+    <string name="update">Actualizar</string>
+    <string name="delete">Borrar</string>
     <string name="price">Precio:</string>
-    <string name="id">Id:</string>
+    <string name="id" translatable="false">Id:</string>
     <string name="hint_price">Precio</string>
     <string name="hint_type">Tipo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="yes">Sí</string>
+    <string name="question_delete_vehicle">¿Estás seguro de borrar el vehículo?</string>
+    <string name="title_delete_vehicle">Borrar vehículo</string>
+    <string name="error_response">Fallo en la respuesta</string>
+    <string name="successful_insert_vehicle">Vehículo insertado correctamente</string>
+    <string name="successful_update_vehicle">Vehículo actualizado correctamente</string>
+    <string name="accept">Aceptar</string>
+    <string name="successful_delete_vehicle">Vehículo eliminado correctamente</string>
 </resources>

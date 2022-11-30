@@ -1,6 +1,8 @@
 package com.cpadridev.carmonaadrian_enterthecaradmin
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,12 +31,12 @@ class MainActivity : AppCompatActivity() {
 
     private val insertResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val dataResult = result.data
+            val bundle = result.data?.getBundleExtra(Intent.EXTRA_TEXT)
 
             val vehicle = Vehicle(null, "", 0)
 
-            vehicle.type = dataResult?.getStringExtra("Type").toString()
-            vehicle.price = dataResult?.getStringExtra("Price")!!.toInt()
+            vehicle.type = bundle?.getString("type").toString()
+            vehicle.price = bundle?.getInt("price")!!
 
             insertData(vehicle)
         }
@@ -42,17 +44,17 @@ class MainActivity : AppCompatActivity() {
 
     private val updateDeleteResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val dataResult = result.data
+            val bundle = result.data?.getBundleExtra(Intent.EXTRA_TEXT)
 
-            if(dataResult?.getBooleanExtra("Delete", true) == true){
-                deleteData(dataResult.getIntExtra("Id", 0))
+            if(bundle?.getBoolean("Delete", true) == true){
+                showDeleteDialog(bundle)
             }
             else{
-                val vehicle = Vehicle(dataResult?.getIntExtra("Id", 0),
-                    dataResult?.getStringExtra("Type").toString(),
-                    dataResult?.getStringExtra("Price")!!.toInt())
+                val vehicle: Vehicle? = bundle?.getParcelable("Vehicle")
 
-                updateData(vehicle)
+                if (vehicle != null) {
+                    updateData(vehicle)
+                }
             }
         }
     }
@@ -75,9 +77,11 @@ class MainActivity : AppCompatActivity() {
         vehicleAdapter = VehicleAdapter()
 
         vehicleAdapter?.setOnItemClickListerner {
+            pressedPosition = recycler.getChildAdapterPosition(it)
+
             val bundle = Bundle()
 
-            bundle.putParcelable("Vehicle", vehicleAdapter?.getItem(recycler.getChildAdapterPosition(it)))
+            bundle.putParcelable("Vehicle", vehicleAdapter?.getItem(pressedPosition))
 
             val intent = Intent(this, UpdateDelete::class.java).apply {
                 putExtra(Intent.EXTRA_TEXT, bundle)
@@ -111,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                         vehicleAdapter?.addToList(vehiclesList)
                     }
                 } else
-                    Toast.makeText(applicationContext,"Fallo en la respuesta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, getString(R.string.error_response), Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<ArrayList<Vehicle>>, t: Throwable) {
@@ -131,13 +135,13 @@ class MainActivity : AppCompatActivity() {
 
                     if (vehic != null) {
                         vehicleAdapter?.addToList(vehic)
-                        Snackbar.make(binding.root, "Trabajador insertado correctamente", Snackbar.LENGTH_LONG)
-                            .setAction("Aceptar"){
+                        Snackbar.make(binding.root, getString(R.string.successful_insert_vehicle), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.accept)){
                             }
                             .show()
                     }
                 } else
-                    Toast.makeText(applicationContext,"Fallo en la respuesta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, getString(R.string.error_response), Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<Vehicle>, t: Throwable) {
@@ -157,13 +161,13 @@ class MainActivity : AppCompatActivity() {
 
                         if (vehic != null) {
                             vehicleAdapter?.updateList(pressedPosition, vehic)
-                            Snackbar.make(binding.root, "Trabajador actualizado correctamente", Snackbar.LENGTH_LONG)
-                                .setAction("Aceptar"){
+                            Snackbar.make(binding.root, getString(R.string.successful_update_vehicle), Snackbar.LENGTH_LONG)
+                                .setAction(getString(R.string.accept)){
                                 }
                                 .show()
                         }
                     } else
-                        Toast.makeText(applicationContext,"Fallo en la respuesta", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, getString(R.string.error_response), Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onFailure(call: Call<Vehicle>, t: Throwable) {
@@ -183,19 +187,34 @@ class MainActivity : AppCompatActivity() {
 
                     if (vehic != null) {
                         vehicleAdapter?.deleteFromList(pressedPosition)
-                        Snackbar.make(binding.root, "Trabajador eliminado correctamente", Snackbar.LENGTH_LONG)
-                            .setAction("Aceptar"){
+                        Snackbar.make(binding.root, getString(R.string.successful_delete_vehicle), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.accept)){
                             }
                             .show()
                     }
                 } else
-                    Toast.makeText(applicationContext, "Fallo en la respuesta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, getString(R.string.error_response), Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<Vehicle>, t: Throwable) {
                 Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
             }
         })
+    }
 
+    private fun showDeleteDialog(bundle: Bundle) {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.title_delete_vehicle))
+        builder.setMessage(getString(R.string.question_delete_vehicle))
+
+        builder.setPositiveButton(getString(R.string.yes)) { dialog, which ->
+            deleteData(bundle.getInt("id", 0))
+        }
+
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, which ->
+
+        }
+
+        builder.show()
     }
 }

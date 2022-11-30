@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Client {
     companion object{
-        const val URL:String = "http://192.168.0.29:3000"
+        private const val URL:String = "http://192.168.0.216:3000"
         var retrofit: Retrofit?= null
 
         fun getClient(): Retrofit? {

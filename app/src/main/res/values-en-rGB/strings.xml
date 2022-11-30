@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="insert">Insert</string>
+    <string name="type">Type:</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="price">Price:</string>
+    <string name="hint_price">Price</string>
+    <string name="hint_type">Type</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="title_delete_vehicle">Delete vehicle</string>
+    <string name="question_delete_vehicle">Are you sure to delete the vehicle?</string>
+    <string name="error_response">Response failed</string>
+    <string name="successful_insert_vehicle">Vehicle inserted correctly</string>
+    <string name="successful_update_vehicle">Vehicle updated successfully</string>
+    <string name="accept">Accept</string>
+    <string name="successful_delete_vehicle">Vehicle successfully removed</string>
+</resources>

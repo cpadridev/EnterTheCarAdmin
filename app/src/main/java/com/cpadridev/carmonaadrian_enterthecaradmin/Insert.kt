@@ -19,12 +19,16 @@ class Insert : AppCompatActivity() {
         val price = binding.edtPrice
 
         btnInsert.setOnClickListener {
+            val bundle = Bundle()
+
+            bundle.putString("type", type.text.toString())
+            bundle.putInt("price", price.text.toString().toInt())
+
             val intent = Intent().apply {
-                putExtra("Type", type.text.toString())
-                putExtra("Price", price.text.toString())
+                putExtra(Intent.EXTRA_TEXT, bundle)
             }
 
-            setResult(AppCompatActivity.RESULT_OK, intent)
+            setResult(RESULT_OK, intent)
 
             finish()
         }
