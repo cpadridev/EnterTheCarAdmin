@@ -77,9 +77,8 @@
         app:layout_constraintVertical_bias="0.424" />
 
     <Button
+        style="@style/btnStyle"
         android:id="@+id/btnUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,9 +88,8 @@
         app:layout_constraintVertical_bias="0.501" />
 
     <Button
+        style="@style/btnStyle"
         android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

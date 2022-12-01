@@ -17,4 +17,6 @@
     <string name="successful_update_vehicle">Vehículo actualizado correctamente</string>
     <string name="accept">Aceptar</string>
     <string name="successful_delete_vehicle">Vehículo eliminado correctamente</string>
+    <string name="error_fill_fields">Debes rellenar todo antes de seguir.</string>
+    <string name="information_message_cancel_delete">No se eliminó el vehículo</string>
 </resources>

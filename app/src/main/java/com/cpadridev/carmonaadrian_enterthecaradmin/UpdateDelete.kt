@@ -2,6 +2,7 @@ package com.cpadridev.carmonaadrian_enterthecaradmin
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cpadridev.carmonaadrian_enterthecaradmin.databinding.ActivityUpdateDeleteBinding
 import com.cpadridev.carmonaadrian_enterthecaradmin.model.Vehicle
@@ -33,18 +34,22 @@ class UpdateDelete : AppCompatActivity() {
         }
 
         btnUpdate.setOnClickListener {
-            val bundle = Bundle()
+            if (type.text.isNotEmpty() && price.text.isNotEmpty()) {
+                val bundle = Bundle()
 
-            bundle.putParcelable("Vehicle", Vehicle(id.text.toString().toInt(), type.text.toString(), price.text.toString().toInt()))
-            bundle.putBoolean("Delete", false)
+                bundle.putParcelable("Vehicle", Vehicle(id.text.toString().toInt(), type.text.toString(), price.text.toString().toInt()))
+                bundle.putBoolean("Delete", false)
 
-            val intent = Intent().apply {
-                putExtra(Intent.EXTRA_TEXT, bundle)
+                val intent = Intent().apply {
+                    putExtra(Intent.EXTRA_TEXT, bundle)
+                }
+
+                setResult(RESULT_OK, intent)
+
+                finish()
+            } else {
+                Toast.makeText(applicationContext, getString(R.string.error_fill_fields), Toast.LENGTH_LONG).show()
             }
-
-            setResult(RESULT_OK, intent)
-
-            finish()
         }
 
         btnDelete.setOnClickListener {

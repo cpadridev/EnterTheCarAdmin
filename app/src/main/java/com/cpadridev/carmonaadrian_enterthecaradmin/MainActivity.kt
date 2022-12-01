@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         builder.setNegativeButton(getString(R.string.cancel)) { dialog, which ->
-
+            Toast.makeText(applicationContext, getString(R.string.information_message_cancel_delete), Toast.LENGTH_SHORT).show()
         }
 
         builder.show()
