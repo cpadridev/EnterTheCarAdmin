@@ -33,12 +33,11 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val bundle = result.data?.getBundleExtra(Intent.EXTRA_TEXT)
 
-            val vehicle = Vehicle(null, "", 0)
+            val vehicle = bundle?.getParcelable<Vehicle>("Vehicle")
 
-            vehicle.type = bundle?.getString("type").toString()
-            vehicle.price = bundle?.getInt("price")!!
-
-            insertData(vehicle)
+            if (vehicle != null) {
+                insertData(vehicle)
+            }
         }
     }
 

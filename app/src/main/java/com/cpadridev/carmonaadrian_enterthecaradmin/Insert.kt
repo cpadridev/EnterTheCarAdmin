@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cpadridev.carmonaadrian_enterthecaradmin.databinding.ActivityInsertBinding
+import com.cpadridev.carmonaadrian_enterthecaradmin.model.Vehicle
 
 class Insert : AppCompatActivity() {
     private lateinit var binding: ActivityInsertBinding
@@ -23,8 +24,7 @@ class Insert : AppCompatActivity() {
             if (type.text.isNotEmpty() && price.text.isNotEmpty()) {
                 val bundle = Bundle()
 
-                bundle.putString("type", type.text.toString())
-                bundle.putInt("price", price.text.toString().toInt())
+                bundle.putParcelable("Vehicle", Vehicle(null, type.text.toString(), price.text.toString().toInt()))
 
                 val intent = Intent().apply {
                     putExtra(Intent.EXTRA_TEXT, bundle)
