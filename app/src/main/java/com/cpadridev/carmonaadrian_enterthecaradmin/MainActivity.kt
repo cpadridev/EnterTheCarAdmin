@@ -22,11 +22,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
 
-    private var retrofit: Retrofit?= null
-    private var vehicleAdapter: VehicleAdapter ?=null
+    private var retrofit: Retrofit? = null
+    private var vehicleAdapter: VehicleAdapter? = null
     private var pressedPosition: Int = -1
 
     private val insertResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
